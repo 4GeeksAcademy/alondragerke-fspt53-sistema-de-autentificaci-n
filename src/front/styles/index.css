@@ -1,3 +1,41 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+body {
+    background: rgb(255,247,168);
+    background: linear-gradient(0deg, rgba(255,247,168,1) 0%, rgba(255,159,180,1) 100%);
+    font-family: "Cabin", sans-serif;
+}
+
+/* navbar */
+.navbar {
+    background-color: none;
+    padding: 30px;
+}
+
+.link-style {
+    text-decoration: none;
+}
+
+.navbar-brand {
+    font-size: 30px;
+}
+
+
+/* footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+}
+
+.footer a {
+    text-decoration: none;
+    font-weight: 600;
+    color: rgb(250, 110, 140);
+}
+
+.fa-heart {
+    color: rgb(250, 110, 140);
+}
