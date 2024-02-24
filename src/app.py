@@ -10,14 +10,19 @@ from api.models import db
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from flask_jwt_extended import JWTManager
+# You must already have this line in your project, you don't have to add it again
+
 
 # from models import Person
-
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+app.config["JWT_SECRET_KEY"] = "X4t@K7j#N1hM6%v"  # Change this "super secret" to something else!
+jwt = JWTManager(app)
+
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
@@ -72,3 +77,64 @@ def serve_any_other_file(path):
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
     app.run(host='0.0.0.0', port=PORT, debug=True)
+
+# import os
+# from flask import Flask, send_from_directory, jsonify
+# from flask_jwt_extended import JWTManager
+# from flask_migrate import Migrate
+# from api.utils import APIException, generate_sitemap
+# from api.models import db
+# from api.admin import setup_admin
+# from api.commands import setup_commands
+# from api.routes import create_app, api
+
+# # Definir la variable ENV antes de crear la aplicación
+# ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
+
+# # Crear la aplicación Flask
+# app = create_app()
+
+# # Configuración de JWT
+# jwt = JWTManager(app)
+
+# # Configuración de la base de datos
+# db_url = os.getenv("DATABASE_URL")
+# if db_url is not None:
+#     app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace(
+#         "postgres://", "postgresql://")
+# else:
+#     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
+
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# db.init_app(app)
+# Migrate(app, db, compare_type=True)
+
+# # Configuración del administrador
+# setup_admin(app)
+
+# # Configuración de comandos
+# setup_commands(app)
+
+# # Manejo de errores
+# @app.errorhandler(APIException)
+# def handle_invalid_usage(error):
+#     return jsonify(error.to_dict()), error.status_code
+
+# # Servir archivos estáticos
+# @app.route('/')
+# def sitemap():
+#     if ENV == "development":
+#         return generate_sitemap(app)
+#     return send_from_directory('public', 'index.html')
+
+# @app.route('/<path:path>', methods=['GET'])
+# def serve_any_other_file(path):
+#     if not os.path.isfile(os.path.join('public', path)):
+#         path = 'index.html'
+#     response = send_from_directory('public', path)
+#     response.cache_control.max_age = 0  # evitar la memoria caché
+#     return response
+
+# if __name__ == '__main__':
+#     PORT = int(os.environ.get('PORT', 3001))
+#     app.run(host='0.0.0.0', port=PORT, debug=True)

@@ -11,6 +11,7 @@ import { Footer } from "./component/footer";
 import Singup from "./pages/Signup";
 import Login from "./pages/Login";
 import Private from "./pages/Private"
+import NotFound from "./pages/notfound/NotFound";
 
 //create your first component
 const Layout = () => {
@@ -30,7 +31,7 @@ const Layout = () => {
                         <Route element={<Singup />} path="/signup" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<Private />} path="/private" />
-                        <Route element={<h1>Not found!</h1>} />
+                        <Route element={<NotFound />} path="*" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>
